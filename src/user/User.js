@@ -12,12 +12,15 @@ import {
   NavLink,
   useRouteMatch,
   Link,
-} from "react-router-dom";
+} from "react-router-dom" //dw added
 
 export const User = () => {
+  
   const [user, setUser] = useState({ posts: [] });
   const [error, setError] = useState(undefined);
-  const { path, url } = useRouteMatch(); // TODO: This ID will need to be pulled from parameters.
+  const { userId } = useParams(); //userId pulled from params
+  //const userId = 1; // TODO: This ID will need to be pulled from parameters.
+  const { path, url } = useRouteMatch() //dw added
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -34,6 +37,7 @@ export const User = () => {
     return (
       <ErrorMessage error={error}>
         <p>
+          {/* <a>Return Home</a> ORIGINAL */}
           <Link to="/">Return Home</Link>
         </p>
       </ErrorMessage>
@@ -42,12 +46,9 @@ export const User = () => {
 
   /*
     TODO: In the below section, update the links to work appropriately with React Router.
-
     TODO: You'll need to add nested routes below.
-
     The <PostList /> component should show on the following route:
     /users/:userId/posts
-
     The <UserProfile /> component should show on the following route:
     /users/:userId
   */
@@ -58,10 +59,12 @@ export const User = () => {
         <h2 className="mb-3">{user.name}</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <NavLink exact to={`${url}`} className="nav-link">Profile</NavLink>
+            {/* <a className="nav-link">Profile</a> ORIGINAL */}
+            <NavLink exact to={`${url}`}className="nav-link">Profile</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={`${url}/posts`} className="nav-link">Posts</NavLink>
+            {/* <a className="nav-link">Posts</a> ORIGINAL */}
+            <NavLink to={`${url}/posts`} className="nav-link"> Posts</NavLink>
           </li>
         </ul>
 
@@ -76,8 +79,6 @@ export const User = () => {
                 <UserProfile user={user} />
               </Route>
             </Switch>
-            
-            
           </div>
         ) : (
           <div className="p-4 border border-top-0">
